@@ -1,0 +1,24 @@
+[package]
+org = "ballerina"
+name = "workflow"
+version = "@toml.version@"
+authors = ["Ballerina"]
+keywords = ["workflow"]
+repository = "https://github.com/ballerina-platform/module-ballerina-workflow"
+license = ["Apache-2.0"]
+distribution = "2201.12.10"
+
+[platform.java21]
+graalvmCompatible = false
+
+[[platform.java21.dependency]]
+groupId = "io.ballerina.stdlib"
+artifactId = "workflow-native"
+version = "@toml.version@"
+path = "../native/build/libs/workflow-native-@project.version@.jar"
+
+[[platform.java21.dependency]]
+groupId = "io.ballerina.stdlib"
+artifactId = "workflow-commons"
+version = "@toml.version@"
+path = "../commons/build/libs/workflow-commons-@project.version@.jar"
