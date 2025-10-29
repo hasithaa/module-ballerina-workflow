@@ -18,11 +18,23 @@
 
 package io.ballerina.stdlib.workflow.compiler;
 
+import io.ballerina.projects.plugins.CompilerPlugin;
+import io.ballerina.projects.plugins.CompilerPluginContext;
+
 /**
  * Workflow compiler plugin for Ballerina.
  */
-public class WorkflowCompilerPlugin {
-
+public class WorkflowCompilerPlugin extends CompilerPlugin {
+    
+    /**
+     * Constructor for WorkflowCompilerPlugin.
+     */
     public WorkflowCompilerPlugin() {
+    }
+
+        
+    @Override
+    public void init(CompilerPluginContext context) {
+        // Placeholder implementation
     }
 }
