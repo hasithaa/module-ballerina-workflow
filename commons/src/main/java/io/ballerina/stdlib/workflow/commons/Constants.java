@@ -25,5 +25,5 @@ package io.ballerina.stdlib.workflow.commons;
  */
 public interface Constants {
 
-    public static final String WORKFLOW_PERSISTENT_PROVIDER = "WORKFLOW_PERSISTENT_PROVIDER";
+    String WORKFLOW_PERSISTENT_PROVIDER = "WORKFLOW_PERSISTENT_PROVIDER";
 }
