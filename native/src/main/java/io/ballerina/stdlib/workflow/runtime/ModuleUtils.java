@@ -16,7 +16,7 @@
  * under the License.
  */
 
-package io.ballerina.stdlib.workflow.runtime.utils;
+package io.ballerina.stdlib.workflow.runtime;
 
 /**
  * This class includes the utility functions related to Ballerina Workflow module.

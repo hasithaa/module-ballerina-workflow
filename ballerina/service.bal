@@ -25,18 +25,23 @@ public isolated class WorkflowEventListener {
     }
 
     public isolated function attach(WorkflowModel svc, string attachPoint) returns error? {
+        check self.persistentProvider.registerWorkflowModel(svc, attachPoint);
     }
 
     public isolated function detach(WorkflowModel svc) returns error? {
+        check self.persistentProvider.unregisterWorkflowModel(svc);
     }
 
     public isolated function 'start() returns error? {
+        check self.persistentProvider.'start();
     }
 
     public isolated function gracefulStop() returns error? {
+        check self.persistentProvider.stop();
     }
 
     public isolated function immediateStop() returns error? {
+        check self.persistentProvider.stop();
     }
 
     public isolated function getClient() returns WorkflowEngineClient|error {
@@ -50,5 +55,38 @@ public type WorkflowModel distinct service object {};
 # Workflow Persistent Provider
 public type PersistentProvider distinct isolated object {
 
+    public isolated function registerWorkflowModel(WorkflowModel svc, string workflowName) returns error?;
+
+    public isolated function unregisterWorkflowModel(WorkflowModel svc) returns error?;
+
+    public isolated function 'start() returns error?;
+
+    public isolated function stop() returns error?;
+
     public isolated function getClient() returns WorkflowEngineClient|error;
+
+    public isolated function getWorkflowOperators() returns WorkflowOperators|error;
+
+    public isolated function getWorkflowInternalOperators() returns WorkflowInternalOperators|error;
+};
+
+
+public type WorkflowOperators distinct isolated object {
+
+    public isolated function await(function () returns boolean cond) returns error?;
+
+    public isolated function awaitWithTimeout(function () returns boolean cond, int timeoutMillis) returns boolean|error;
+
+    public isolated function sleep(Duration duration) returns error?;
+
+    public isolated function currentTimeMillis() returns int;
+};
+
+public type WorkflowInternalOperators distinct isolated object {
+
+    public isolated function isReplaying() returns boolean;
+
+    public isolated function invokeActivity(string activityId, anydata... args) returns anydata|error;
+
+    public isolated function getResultFromLastActivity(string activityId) returns anydata|error;
 };

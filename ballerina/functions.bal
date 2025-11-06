@@ -18,14 +18,18 @@
 #
 # + conditionFunc - condition function or boolean value to wait for
 # + return - return error if the operation fails, otherwise wait until the condition is true. Successful await returns nil.
-public function await((function () returns boolean)|boolean conditionFunc) returns error? {
-    // Implementation for pausing the workflow until the condition is true
-}
+@Activity
+public function await((function () returns boolean)|boolean conditionFunc) returns error? = external;
+
+
+public function awaitWithTimeout((function () returns boolean)|boolean conditionFunc, Duration timeout) returns error? = external;
 
 # Sleep for the specified duration.
 #
 # + duration - duration to sleep for
 # + return - return error if the operation fails, otherwise wait for the specified duration. Successful sleep returns nil.
-public function sleep(Duration duration) returns error? {
-    // Implementation for sleeping/waiting for the specified duration
-}
+@Activity
+public function sleep(Duration duration) returns error? = external;
+
+
+public function currentTimeMillis() returns int  = external;

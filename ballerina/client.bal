@@ -20,13 +20,15 @@ public type WorkflowEngineClient isolated client object {
 
     isolated remote function search(string process, map<anydata> cid) returns Execution?|error;
 
-    isolated remote function startNew(string workflowName, string methodName, anydata... args) returns Execution|error;
+    isolated remote function execute(string workflowName, string methodName, anydata... args) returns Execution|error;
 
     isolated remote function signal(Execution execution, string signalName, anydata... args) returns error?;
 
     isolated remote function update(Execution execution, string updateName, anydata... args) returns anydata|error;
 
     isolated remote function query(Execution execution, string queryName, anydata... args) returns anydata|error;
+
+    isolated remote function cancel(Execution execution) returns error?;
 
     isolated remote function stop(Execution execution) returns error?;
 };

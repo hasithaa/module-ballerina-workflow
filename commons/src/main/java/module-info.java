@@ -17,5 +17,5 @@
  */
 
 module io.ballerina.stdlib.workflow.commons {
-    exports io.ballerina.stdlib.workflow.commons.utils;
+    exports io.ballerina.stdlib.workflow.commons;
 }

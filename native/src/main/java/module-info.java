@@ -21,5 +21,5 @@ module io.ballerina.stdlib.workflow.runtime {
     requires java.sql;
     requires java.logging;
     
-    exports io.ballerina.stdlib.workflow.runtime.utils;
+    exports io.ballerina.stdlib.workflow.runtime;
 }
