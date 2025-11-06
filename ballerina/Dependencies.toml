@@ -13,6 +13,6 @@ name = "workflow"
 version = "0.1.0"
 modules = [
 	{org = "ballerina", packageName = "workflow", moduleName = "workflow"},
-	{org = "ballerina", packageName = "workflow", moduleName = "workflow.rdbms"}
+	{org = "ballerina", packageName = "workflow", moduleName = "workflow.internal"}
 ]
 
