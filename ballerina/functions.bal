@@ -20,21 +20,17 @@ import ballerina/jballerina.java;
 # + conditionFunc - condition function or boolean value to wait for
 # + return - return error if the operation fails, otherwise wait until the condition is true. Successful await returns nil.
 @Activity
-public function await((function () returns boolean)|boolean conditionFunc) returns NotInWorkflowError|UnsupportedOperationError|error? {
+public function await(boolean conditionFunc) returns NotInWorkflowError|error? {
+    // TODO: Fix this logic
     PersistentProvider provider = check getCurrentProvider();
     WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
-    if conditionFunc is boolean {
-        return error UnsupportedOperationError("Operation not supported", operation = "await");
-    }
     return workflowOperators.await(conditionFunc);
 }
 
-public function awaitWithTimeout((function () returns boolean)|boolean conditionFunc, Duration timeout) returns boolean|NotInWorkflowError|UnsupportedOperationError|error {
+public function awaitWithTimeout(boolean conditionFunc, Duration timeout) returns boolean|NotInWorkflowError|error {
+    // TODO: Fix this logic
     PersistentProvider provider = check getCurrentProvider();
     WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
-    if conditionFunc is boolean {
-        return error UnsupportedOperationError("Operation not supported", operation = "awaitWithTimeout");
-    }
     return workflowOperators.awaitWithTimeout(conditionFunc, timeout);
 }
 
@@ -67,13 +63,6 @@ function getProviderExternal() returns PersistentProvider? = @java:Method {
     'class: "io.ballerina.stdlib.workflow.runtime.PersistentProviderHolder",
     name: "getProvider"
 } external;
-
-public type UnsupportedOperationError distinct error<UnsupportedOperationDetails>;
-
-public type UnsupportedOperationDetails record {
-    string reason = "This operation is not supported in the current context.";
-    string operation;
-};
 
 public type NotInWorkflowError distinct error<NotInWorkflowDetails>;
 

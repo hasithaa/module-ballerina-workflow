@@ -73,9 +73,9 @@ public type PersistentProvider distinct isolated object {
 
 public type WorkflowOperators distinct isolated object {
 
-    public isolated function await(function () returns boolean cond) returns error?;
+    public isolated function await(boolean cond) returns error?;
 
-    public isolated function awaitWithTimeout(function () returns boolean cond, Duration timeout) returns boolean|error;
+    public isolated function awaitWithTimeout(boolean cond, Duration timeout) returns boolean|error;
 
     public isolated function sleep(Duration duration) returns error?;
 

@@ -1,7 +1,7 @@
 /*
- *  Copyright (c) 2025, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+ *  Copyright (c) 2025, WSO2 LLC. (https://www.wso2.com).
  *
- *  WSO2 Inc. licenses this file to you under the Apache License,
+ *  WSO2 LLC. licenses this file to you under the Apache License,
  *  Version 2.0 (the "License"); you may not use this file except
  *  in compliance with the License.
  *  You may obtain a copy of the License at
@@ -15,21 +15,15 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
+package io.ballerina.stdlib.workflow.commons;
 
-package io.ballerina.stdlib.workflow.runtime;
-
-import io.ballerina.runtime.api.Environment;
-
-import static io.ballerina.stdlib.workflow.commons.Constants.WORKFLOW_PERSISTENT_PROVIDER;
 
 /**
- * Native implementation for getProviderExternal.
+ * Constants used in Workflow module.
  *
  * @since 0.1.0
  */
-public final class PersistentProviderHolder {
+public interface Constants {
 
-    public static Object getProvider(Environment env) {
-        return env.getStrandLocal(WORKFLOW_PERSISTENT_PROVIDER);
-    }
+    public static final String WORKFLOW_PERSISTENT_PROVIDER = "WORKFLOW_PERSISTENT_PROVIDER";
 }
