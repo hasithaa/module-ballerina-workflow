@@ -20,6 +20,7 @@ module io.ballerina.stdlib.workflow.runtime {
     requires io.ballerina.stdlib.workflow.commons;
     requires java.sql;
     requires java.logging;
-    
+    requires io.ballerina.runtime;
+
     exports io.ballerina.stdlib.workflow.runtime;
 }

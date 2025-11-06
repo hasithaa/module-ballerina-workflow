@@ -75,7 +75,7 @@ public type WorkflowOperators distinct isolated object {
 
     public isolated function await(function () returns boolean cond) returns error?;
 
-    public isolated function awaitWithTimeout(function () returns boolean cond, int timeoutMillis) returns boolean|error;
+    public isolated function awaitWithTimeout(function () returns boolean cond, Duration timeout) returns boolean|error;
 
     public isolated function sleep(Duration duration) returns error?;
 
@@ -86,7 +86,7 @@ public type WorkflowInternalOperators distinct isolated object {
 
     public isolated function isReplaying() returns boolean;
 
-    public isolated function invokeActivity(string activityId, anydata... args) returns anydata|error;
+    public isolated function invokeActivity(string activity, string activityId, anydata... args) returns anydata|error;
 
     public isolated function getResultFromLastActivity(string activityId) returns anydata|error;
 };
