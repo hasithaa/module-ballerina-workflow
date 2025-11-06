@@ -18,7 +18,7 @@
 public type Duration record {
     # Number of months
     int months?;
-    # Number of days 
+    # Number of days
     int days?;
     # Number of hours
     int hours?;
