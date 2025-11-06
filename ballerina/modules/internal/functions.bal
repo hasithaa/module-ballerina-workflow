@@ -66,7 +66,7 @@ function getCurrentProvider() returns workflow:PersistentProvider|workflow:NotIn
     return provider;
 }
 
-function getProviderExternal() returns PersistentProvider? = @java:Method {
+function getProviderExternal() returns workflow:PersistentProvider? = @java:Method {
     'class: "io.ballerina.stdlib.workflow.runtime.PersistentProviderHolder",
     name: "getProvider"
 } external;
