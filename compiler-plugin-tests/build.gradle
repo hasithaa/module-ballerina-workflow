@@ -117,6 +117,6 @@ test {
     }
 }
 
-// test.dependsOn ":workflow-ballerina:build"
+test.dependsOn ":workflow-ballerina:build"
 test.finalizedBy jacocoTestReport
 jacocoTestReport.dependsOn test

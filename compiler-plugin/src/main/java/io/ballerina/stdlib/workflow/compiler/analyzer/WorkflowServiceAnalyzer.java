@@ -16,30 +16,23 @@
  * under the License.
  */
 
-package io.ballerina.stdlib.workflow.compiler.diagnostics;
+package io.ballerina.stdlib.workflow.compiler.analyzer;
+
+import io.ballerina.compiler.syntax.tree.SyntaxKind;
+import io.ballerina.projects.plugins.CodeAnalysisContext;
+import io.ballerina.projects.plugins.CodeAnalyzer;
+
 
 /**
- * Compilation error codes used in Ballerina Workflow package compiler plugin.
+ * Workflow service analyzer.
+ *
+ * @since 0.1.0
  */
-public enum DiagnosticCode {
-    WORKFLOW_101,
-    WORKFLOW_102,
-    WORKFLOW_103,
-    WORKFLOW_104,
-    WORKFLOW_105,
-    WORKFLOW_106,
-    WORKFLOW_107,
-    WORKFLOW_108,
-    WORKFLOW_109,
-    WORKFLOW_110;
-    
-    private final String value;
-    
-    DiagnosticCode() {
-        this.value = this.name();
-    }
-    
-    public String getValue() {
-        return value;
+public class WorkflowServiceAnalyzer extends CodeAnalyzer {
+    @Override
+    public void init(CodeAnalysisContext codeAnalysisContext) {
+        codeAnalysisContext.addSyntaxNodeAnalysisTask(new WorkflowServiceAnalysisTask(),
+                SyntaxKind.SERVICE_DECLARATION);
+        codeAnalysisContext.addSyntaxNodeAnalysisTask(new WorkflowServiceAnalysisTask(), SyntaxKind.OBJECT_CONSTRUCTOR);
     }
 }

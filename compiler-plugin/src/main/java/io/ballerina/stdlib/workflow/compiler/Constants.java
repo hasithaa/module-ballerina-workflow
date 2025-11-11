@@ -16,13 +16,19 @@
  * under the License.
  */
 
-module io.ballerina.stdlib.workflow.compiler {
-    requires io.ballerina.stdlib.workflow.commons;
-    requires io.ballerina.lang;
-    requires io.ballerina.parser;
-    requires io.ballerina.tools.api;
+package io.ballerina.stdlib.workflow.compiler;
 
-    exports io.ballerina.stdlib.workflow.compiler;
-    exports io.ballerina.stdlib.workflow.compiler.analyzer;
-    exports io.ballerina.stdlib.workflow.compiler.diagnostics;
+/**
+ * Constants used in Ballerina Workflow package compiler plugin.
+ *
+ * @since 0.1.0
+ */
+public final class Constants {
+    private Constants() {}
+
+    public static final String BALLERINA = "ballerina";
+    public static final String WORKFLOW = "workflow";
+    public static final String EXECUTE = "execute";
+    public static final String SIGNAL = "Signal";
+    public static final String QUERY = "Query";
 }
