@@ -15,15 +15,24 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package io.ballerina.stdlib.workflow.commons;
+package io.ballerina.stdlib.workflow.runtime.commons;
+
+import io.ballerina.runtime.api.creators.ErrorCreator;
+import io.ballerina.runtime.api.utils.StringUtils;
+import io.ballerina.runtime.api.values.BError;
 
 
-/**
- * Constants used in Workflow module.
- *
- * @since 0.1.0
- */
-public interface Constants {
+public class Utils {
 
-    String WORKFLOW_PERSISTENT_PROVIDER = "WORKFLOW_PERSISTENT_PROVIDER";
+    /**
+     * Create a Ballerina error object.
+     *
+     * @param errorType Type of the error
+     * @param message   Error message
+     * @return Ballerina error object
+     */
+    public static BError createError(String errorType, String message) {
+
+        return ErrorCreator.createError(StringUtils.fromString(errorType), StringUtils.fromString(message));
+    }
 }

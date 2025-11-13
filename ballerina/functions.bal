@@ -13,60 +13,63 @@
 // KIND, either express or implied.  See the License for the
 // specific language governing permissions and limitations
 // under the License.
+
 import ballerina/jballerina.java;
 
-# Await for a condition to be true.
-#
-# + conditionFunc - condition function or boolean value to wait for
-# + return - return error if the operation fails, otherwise wait until the condition is true. Successful await returns nil.
-@Activity
-public function await(boolean conditionFunc) returns NotInWorkflowError|error? {
-    // TODO: Fix this logic
-    PersistentProvider provider = check getCurrentProvider();
-    WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
-    return workflowOperators.await(conditionFunc);
-}
+// # Await for a condition to be true.
+// #
+// # + conditionFunc - condition function or boolean value to wait for
+// # + return - return error if the operation fails, otherwise wait until the condition is true. Successful await returns nil.
+// @Activity
+// public function await(boolean conditionFunc) returns NotInWorkflowError|error? {
+//     // TODO: Fix this logic
+//     PersistentProvider provider = check getCurrentProvider();
+//     WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
+//     return workflowOperators.await(conditionFunc);
+// }
 
-public function awaitWithTimeout(boolean conditionFunc, Duration timeout) returns boolean|NotInWorkflowError|error {
-    // TODO: Fix this logic
-    PersistentProvider provider = check getCurrentProvider();
-    WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
-    return workflowOperators.awaitWithTimeout(conditionFunc, timeout);
-}
+// public function awaitWithTimeout(boolean conditionFunc, Duration timeout) returns boolean|NotInWorkflowError|error {
+//     // TODO: Fix this logic
+//     PersistentProvider provider = check getCurrentProvider();
+//     WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
+//     return workflowOperators.awaitWithTimeout(conditionFunc, timeout);
+// }
 
-# Sleep for the specified duration.
-#
-# + duration - duration to sleep for
-# + return - return error if the operation fails, otherwise wait for the specified duration. Successful sleep returns nil.
-@Activity
-public function sleep(Duration duration) returns NotInWorkflowError|error? {
-    PersistentProvider provider = check getCurrentProvider();
-    WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
-    return workflowOperators.sleep(duration);
-}
+// # Sleep for the specified duration.
+// #
+// # + duration - duration to sleep for
+// # + return - return error if the operation fails, otherwise wait for the specified duration. Successful sleep returns nil.
+// @Activity
+// public function sleep(Duration duration) returns NotInWorkflowError|error? {
+//     PersistentProvider provider = check getCurrentProvider();
+//     WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
+//     return workflowOperators.sleep(duration);
+// }
 
-public function currentTimeMillis() returns int|NotInWorkflowError|error {
-    PersistentProvider provider = check getCurrentProvider();
-    WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
-    return workflowOperators.currentTimeMillis();
-}
+// public function currentTimeMillis() returns int|NotInWorkflowError|error {
+//     PersistentProvider provider = check getCurrentProvider();
+//     WorkflowOperators workflowOperators = check provider.getWorkflowOperators();
+//     return workflowOperators.currentTimeMillis();
+// }
 
-function getCurrentProvider() returns PersistentProvider|NotInWorkflowError {
-    PersistentProvider? provider = getProviderExternal();
-    if provider is () {
-        return error NotInWorkflowError("No PersistentProvider");
+isolated function getServiceModel(WorkflowModel svc) returns WorkflowModelDetails|NotInWorkflowError {
+     var serviceModel = getServiceModelExternal(svc);
+    if serviceModel is WorkflowModelDetails {
+        return serviceModel;
+    } else {
+        return error NotInWorkflowError("Not in a workflow execution context");
     }
-    return provider;
 }
 
-function getProviderExternal() returns PersistentProvider? = @java:Method {
-    'class: "io.ballerina.stdlib.workflow.runtime.PersistentProviderHolder",
-    name: "getProvider"
+isolated function getServiceModelExternal(WorkflowModel svc, typedesc t = WorkflowModelDetails) returns WorkflowModelDetails|error? = @java:Method {
+    'class: "io.ballerina.stdlib.workflow.runtime.nativeimpl.HelperFunction",
+    name: "getServiceModel"
 } external;
 
 public type NotInWorkflowError distinct error<NotInWorkflowDetails>;
 
 public type NotInWorkflowDetails record {
+    "NOT_IN_WORKFLOW" key = "NOT_IN_WORKFLOW";
     string reason = "The operation is only supported inside a workflow execution context.";
 };
 

@@ -15,15 +15,14 @@
  *  specific language governing permissions and limitations
  *  under the License.
  */
-package io.ballerina.stdlib.workflow.commons;
+package io.ballerina.stdlib.workflow.runtime.commons.model;
 
-public interface WorkflowServiceListener {
+import io.ballerina.runtime.api.types.RemoteMethodType;
+import io.ballerina.runtime.api.values.BObject;
 
-    void register(String serviceName);
+public class QueryMethod extends AbstractRemoteMethod {
 
-    void unregister(String serviceName);
-
-    void start();
-
-    void stop();
+    QueryMethod(String methodName, RemoteMethodType remoteMethodType, BObject object) {
+        super(methodName, remoteMethodType, object);
+    }
 }

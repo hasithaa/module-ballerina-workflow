@@ -14,18 +14,26 @@
 // specific language governing permissions and limitations
 // under the License.
 
+import workflow.internal;
+
 # Workflow Event Listener
 #
 # An event listener to manage the workflow and event interactions with the workflow engine.
 public isolated class WorkflowEventListener {
 
     final PersistentProvider persistentProvider;
+
     public isolated function init(PersistentProvider persistentProvider) {
         self.persistentProvider = persistentProvider;
     }
 
-    public isolated function attach(WorkflowModel svc, string attachPoint) returns error? {
-        check self.persistentProvider.registerWorkflowModel(svc, attachPoint);
+    public isolated function attach(WorkflowModel svc, string workflowName) returns error? {
+
+        WorkflowModelDetails details = check getServiceModel(svc);
+        // Assume we have desugared the workflow activities at compile time.
+        Activities? result = (typeof svc).@internal:__WorkflowActivities;
+
+        check self.persistentProvider.registerWorkflowModel(svc, details, workflowName, result ?: {});
     }
 
     public isolated function detach(WorkflowModel svc) returns error? {
@@ -51,42 +59,3 @@ public isolated class WorkflowEventListener {
 
 # Workflow Service Model
 public type WorkflowModel distinct service object {};
-
-# Workflow Persistent Provider
-public type PersistentProvider distinct isolated object {
-
-    public isolated function registerWorkflowModel(WorkflowModel svc, string workflowName) returns error?;
-
-    public isolated function unregisterWorkflowModel(WorkflowModel svc) returns error?;
-
-    public isolated function 'start() returns error?;
-
-    public isolated function stop() returns error?;
-
-    public isolated function getClient() returns WorkflowEngineClient|error;
-
-    public isolated function getWorkflowOperators() returns WorkflowOperators|error;
-
-    public isolated function getWorkflowInternalOperators() returns WorkflowInternalOperators|error;
-};
-
-
-public type WorkflowOperators distinct isolated object {
-
-    public isolated function await(boolean cond) returns error?;
-
-    public isolated function awaitWithTimeout(boolean cond, Duration timeout) returns boolean|error;
-
-    public isolated function sleep(Duration duration) returns error?;
-
-    public isolated function currentTimeMillis() returns int;
-};
-
-public type WorkflowInternalOperators distinct isolated object {
-
-    public isolated function isReplaying() returns boolean;
-
-    public isolated function invokeActivity(string activity, string activityId, anydata... args) returns anydata|error;
-
-    public isolated function getResultFromLastActivity(string activityId) returns anydata|error;
-};

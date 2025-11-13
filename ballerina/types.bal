@@ -35,3 +35,19 @@ public type Execution record {|
     # The unique identifier of the workflow execution.
     string id;
 |};
+
+public type Activities map<function>;
+
+public type WorkflowModelDetails record {|
+    WorkflowAction execute;
+    map<WorkflowAction> signals;
+    map<WorkflowAction> queries;
+|};
+
+public type WorkflowAction record {|
+    string name;
+    Parameters parameters;
+    typedesc returnType;
+|};
+
+public type Parameters map<typedesc>;
