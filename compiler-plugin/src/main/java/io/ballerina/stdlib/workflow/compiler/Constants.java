@@ -16,30 +16,19 @@
  * under the License.
  */
 
-package io.ballerina.stdlib.workflow.compiler.diagnostics;
+package io.ballerina.stdlib.workflow.compiler;
 
 /**
- * Compilation error codes used in Ballerina Workflow package compiler plugin.
+ * Constants used in Ballerina Workflow package compiler plugin.
+ *
+ * @since 0.1.0
  */
-public enum DiagnosticCode {
-    WORKFLOW_101,
-    WORKFLOW_102,
-    WORKFLOW_103,
-    WORKFLOW_104,
-    WORKFLOW_105,
-    WORKFLOW_106,
-    WORKFLOW_107,
-    WORKFLOW_108,
-    WORKFLOW_109,
-    WORKFLOW_110;
-    
-    private final String value;
-    
-    DiagnosticCode() {
-        this.value = this.name();
-    }
-    
-    public String getValue() {
-        return value;
-    }
+public final class Constants {
+    private Constants() {}
+
+    public static final String BALLERINA = "ballerina";
+    public static final String WORKFLOW = "workflow";
+    public static final String EXECUTE = "execute";
+    public static final String SIGNAL = "Signal";
+    public static final String QUERY = "Query";
 }

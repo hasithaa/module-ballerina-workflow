@@ -1,0 +1,4 @@
+[package]
+org = "workflow_test"
+name = "valid_workflow_service"
+version = "1.0.0"
