@@ -52,6 +52,10 @@ import ballerina/jballerina.java;
 //     return workflowOperators.currentTimeMillis();
 // }
 
+# Gets the service model for a workflow.
+#
+# + svc - The workflow model
+# + return - The workflow methods or an error if not in workflow context
 isolated function getServiceModel(WorkflowModel svc) returns WorkflowMethods|NotInWorkflowError {
      var serviceModel = getServiceModelExternal(svc);
     if serviceModel is WorkflowMethods {
@@ -61,15 +65,23 @@ isolated function getServiceModel(WorkflowModel svc) returns WorkflowMethods|Not
     }
 }
 
+# External function to get the service model.
+#
+# + svc - The workflow model
+# + return - The workflow methods or an error if extraction fails
 isolated function getServiceModelExternal(WorkflowModel svc) returns WorkflowMethods|error? = @java:Method {
     'class: "io.ballerina.stdlib.workflow.runtime.nativeimpl.HelperFunction",
     name: "getServiceModel"
 } external;
 
+# Error type representing operations attempted outside workflow execution context.
 public type NotInWorkflowError distinct error<NotInWorkflowDetails>;
 
+# Error details for NotInWorkflowError.
+#
+# + key - The error key identifier
+# + reason - The reason for the error
 public type NotInWorkflowDetails record {
     "NOT_IN_WORKFLOW" key = "NOT_IN_WORKFLOW";
     string reason = "The operation is only supported inside a workflow execution context.";
 };
-

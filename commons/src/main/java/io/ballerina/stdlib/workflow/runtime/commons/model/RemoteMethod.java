@@ -20,11 +20,34 @@ package io.ballerina.stdlib.workflow.runtime.commons.model;
 import io.ballerina.runtime.api.types.Parameter;
 import io.ballerina.runtime.api.types.Type;
 
+/**
+ * Interface representing a remote method in a workflow service.
+ *
+ * @since 0.1.0
+ */
 public interface RemoteMethod {
 
+    /**
+     * Gets the name of the remote method.
+     *
+     * @return the method name
+     * @since 0.1.0
+     */
     String getName();
 
+    /**
+     * Gets the return type of the remote method.
+     *
+     * @return the return type
+     * @since 0.1.0
+     */
     Type getReturnType();
 
+    /**
+     * Gets the parameters of the remote method.
+     *
+     * @return array of parameters
+     * @since 0.1.0
+     */
     Parameter[] getParameters();
 }

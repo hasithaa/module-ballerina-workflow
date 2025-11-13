@@ -20,8 +20,22 @@ package io.ballerina.stdlib.workflow.runtime.commons.model;
 import io.ballerina.runtime.api.types.RemoteMethodType;
 import io.ballerina.runtime.api.values.BObject;
 
+/**
+ * Represents a signal method in a workflow service.
+ * Signal methods are used to send signals to a running workflow to trigger state changes or actions.
+ *
+ * @since 0.1.0
+ */
 public class SignalMethod extends AbstractRemoteMethod {
 
+    /**
+     * Constructs a SignalMethod instance.
+     *
+     * @param methodName the name of the signal method
+     * @param remoteMethodType the remote method type
+     * @param object the Ballerina service object
+     * @since 0.1.0
+     */
     SignalMethod(String methodName, RemoteMethodType remoteMethodType, BObject object) {
         super(methodName, remoteMethodType, object);
     }

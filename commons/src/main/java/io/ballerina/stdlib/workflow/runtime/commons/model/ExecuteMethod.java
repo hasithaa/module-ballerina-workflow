@@ -20,8 +20,22 @@ package io.ballerina.stdlib.workflow.runtime.commons.model;
 import io.ballerina.runtime.api.types.RemoteMethodType;
 import io.ballerina.runtime.api.values.BObject;
 
+/**
+ * Represents the execute method of a workflow service.
+ * The execute method is the main entry point for workflow execution.
+ *
+ * @since 0.1.0
+ */
 public class ExecuteMethod extends AbstractRemoteMethod {
 
+    /**
+     * Constructs an ExecuteMethod instance.
+     *
+     * @param methodName the name of the execute method
+     * @param remoteMethodType the remote method type
+     * @param object the Ballerina service object
+     * @since 0.1.0
+     */
     ExecuteMethod(String methodName, RemoteMethodType remoteMethodType, BObject object) {
         super(methodName, remoteMethodType, object);
     }

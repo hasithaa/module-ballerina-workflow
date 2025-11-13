@@ -22,13 +22,25 @@ import io.ballerina.runtime.api.types.Parameter;
 import io.ballerina.runtime.api.types.Type;
 import io.ballerina.runtime.api.values.BObject;
 
+/**
+ * Abstract base class for remote method implementations in workflow services.
+ *
+ * @since 0.1.0
+ */
 public abstract class AbstractRemoteMethod implements RemoteMethod {
 
 
     private final String methodName;
     private final FunctionType remoteMethodType;
 
-
+    /**
+     * Constructs an AbstractRemoteMethod.
+     *
+     * @param methodName the name of the method
+     * @param remoteMethodType the function type of the remote method
+     * @param object the Ballerina service object
+     * @since 0.1.0
+     */
     AbstractRemoteMethod(String methodName, FunctionType remoteMethodType, BObject object) {
         this.methodName = methodName;
         this.remoteMethodType = remoteMethodType;

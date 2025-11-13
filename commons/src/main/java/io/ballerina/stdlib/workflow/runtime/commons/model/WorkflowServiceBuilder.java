@@ -30,11 +30,26 @@ import static io.ballerina.stdlib.workflow.runtime.commons.Constants.COLON;
 import static io.ballerina.stdlib.workflow.runtime.commons.Constants.QUERY_ANNOTATION;
 import static io.ballerina.stdlib.workflow.runtime.commons.Constants.SIGNAL_ANNOTATION;
 
+/**
+ * Builder class for constructing WorkflowService instances from Ballerina service objects.
+ *
+ * @since 0.1.0
+ */
 public class WorkflowServiceBuilder {
 
     private WorkflowServiceBuilder() {
     }
 
+    /**
+     * Builds a WorkflowService instance from a Ballerina service object.
+     *
+     * @param svc the Ballerina service object
+     * @param packageIdentifier the package identifier for annotation matching
+     * @return the constructed WorkflowService instance
+     * @throws IllegalArgumentException if the provided object is not a service type
+     * @throws IllegalStateException if the service is missing the execute method or has unsupported methods
+     * @since 0.1.0
+     */
     public static WorkflowService build(BObject svc, String packageIdentifier) {
         ServiceType serviceType;
         if (svc.getOriginalType() instanceof ServiceType svcType) {
@@ -54,20 +69,20 @@ public class WorkflowServiceBuilder {
             }
 
             // Check for annotations to identify if it's a query or signal method
-            final BString WORKFLOW_QUERY =
+            final BString workflowQuery =
                     StringUtils.fromString(packageIdentifier + COLON + QUERY_ANNOTATION);
-            final BString WORKFLOW_SIGNAL =
+            final BString workflowSignal =
                     StringUtils.fromString(packageIdentifier + COLON + SIGNAL_ANNOTATION);
 
             BString[] annotations = remoteMethod.getAnnotations().getKeys();
             boolean isFound = false;
             for (BString annotationKey : annotations) {
-                if (annotationKey.equals(WORKFLOW_QUERY)) {
+                if (annotationKey.equals(workflowQuery)) {
                     QueryMethod queryMethod = new QueryMethod(remoteMethod.getName(), remoteMethod, svc);
                     queryMethods.put(remoteMethod.getName(), queryMethod);
                     isFound = true;
                     break;
-                } else if (annotationKey.equals(WORKFLOW_SIGNAL)) {
+                } else if (annotationKey.equals(workflowSignal)) {
                     SignalMethod signalMethod = new SignalMethod(remoteMethod.getName(), remoteMethod, svc);
                     signalMethods.put(remoteMethod.getName(), signalMethod);
                     isFound = true;

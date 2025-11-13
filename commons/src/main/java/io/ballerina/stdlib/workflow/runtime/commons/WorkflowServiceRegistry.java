@@ -23,23 +23,48 @@ import io.ballerina.stdlib.workflow.runtime.commons.model.WorkflowService;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Registry for managing workflow services by provider.
+ *
+ * @since 0.1.0
+ */
 public class WorkflowServiceRegistry {
 
-    private final static Map<String, WorkflowServiceRegistry> serviceRegistryMap = new HashMap<>();
+    private static final Map<String, WorkflowServiceRegistry> serviceRegistryMap = new HashMap<>();
 
     private final Map<String, WorkflowService> workflowServiceMap = new HashMap<>();
 
     private WorkflowServiceRegistry() {
     }
 
+    /**
+     * Gets or creates a WorkflowServiceRegistry instance for the specified provider.
+     *
+     * @param provider the provider name
+     * @return the WorkflowServiceRegistry instance for the provider
+     * @since 0.1.0
+     */
     public static WorkflowServiceRegistry getInstance(String provider) {
         return serviceRegistryMap.computeIfAbsent(provider, k -> new WorkflowServiceRegistry());
     }
 
+    /**
+     * Registers a workflow service with the given name.
+     *
+     * @param workflowName the name of the workflow
+     * @param service the workflow service to register
+     * @since 0.1.0
+     */
     public void registerWorkflow(String workflowName, WorkflowService service) {
         workflowServiceMap.put(workflowName, service);
     }
 
+    /**
+     * Unregisters a workflow service by its service object.
+     *
+     * @param svc the Ballerina service object to unregister
+     * @since 0.1.0
+     */
     public void unregisterWorkflow(BObject svc) {
         workflowServiceMap.values().removeIf(wsvc -> wsvc.serviceObject().equals(svc));
     }

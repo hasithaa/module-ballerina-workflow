@@ -32,26 +32,27 @@ public class ModuleUtils {
 
     private static Module workflowModule;
     private static String packageIdentifier;
-    private static Environment environment;
 
     private ModuleUtils() {
     }
 
+    /**
+     * Sets the workflow module and initializes the package identifier.
+     *
+     * @param env the Ballerina environment
+     * @since 0.1.0
+     */
     public static void setModule(Environment env) {
-        environment = env;
         workflowModule = env.getCurrentModule();
         packageIdentifier = Constants.WORKFLOW_PACKAGE_ORG + ORG_NAME_SEPARATOR + Constants.WORKFLOW_PACKAGE_NAME +
                 Constants.COLON + workflowModule.getMajorVersion();
     }
 
-    public static Environment getEnvironment() {
-        return environment;
-    }
-
     /**
      * Gets ballerina workflow package.
      *
-     * @return workflow package.
+     * @return workflow package
+     * @since 0.1.0
      */
     public static Module getPackage() {
         return workflowModule;
@@ -60,7 +61,8 @@ public class ModuleUtils {
     /**
      * Gets ballerina workflow package identifier.
      *
-     * @return workflow package identifier.
+     * @return workflow package identifier
+     * @since 0.1.0
      */
     public static String getPackageIdentifier() {
         return packageIdentifier;

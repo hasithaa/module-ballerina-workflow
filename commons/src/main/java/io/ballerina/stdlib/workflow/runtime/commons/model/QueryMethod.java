@@ -20,8 +20,22 @@ package io.ballerina.stdlib.workflow.runtime.commons.model;
 import io.ballerina.runtime.api.types.RemoteMethodType;
 import io.ballerina.runtime.api.values.BObject;
 
+/**
+ * Represents a query method in a workflow service.
+ * Query methods are used to retrieve information from a workflow without modifying its state.
+ *
+ * @since 0.1.0
+ */
 public class QueryMethod extends AbstractRemoteMethod {
 
+    /**
+     * Constructs a QueryMethod instance.
+     *
+     * @param methodName the name of the query method
+     * @param remoteMethodType the remote method type
+     * @param object the Ballerina service object
+     * @since 0.1.0
+     */
     QueryMethod(String methodName, RemoteMethodType remoteMethodType, BObject object) {
         super(methodName, remoteMethodType, object);
     }

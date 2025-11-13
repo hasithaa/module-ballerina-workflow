@@ -21,15 +21,20 @@ import io.ballerina.runtime.api.creators.ErrorCreator;
 import io.ballerina.runtime.api.utils.StringUtils;
 import io.ballerina.runtime.api.values.BError;
 
-
+/**
+ * Utility class for workflow runtime operations.
+ *
+ * @since 0.1.0
+ */
 public class Utils {
 
     /**
      * Create a Ballerina error object.
      *
-     * @param errorType Type of the error
-     * @param message   Error message
+     * @param errorType type of the error
+     * @param message   error message
      * @return Ballerina error object
+     * @since 0.1.0
      */
     public static BError createError(String errorType, String message) {
 
