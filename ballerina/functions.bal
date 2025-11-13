@@ -52,16 +52,16 @@ import ballerina/jballerina.java;
 //     return workflowOperators.currentTimeMillis();
 // }
 
-isolated function getServiceModel(WorkflowModel svc) returns WorkflowModelDetails|NotInWorkflowError {
+isolated function getServiceModel(WorkflowModel svc) returns WorkflowMethods|NotInWorkflowError {
      var serviceModel = getServiceModelExternal(svc);
-    if serviceModel is WorkflowModelDetails {
+    if serviceModel is WorkflowMethods {
         return serviceModel;
     } else {
         return error NotInWorkflowError("Not in a workflow execution context");
     }
 }
 
-isolated function getServiceModelExternal(WorkflowModel svc, typedesc t = WorkflowModelDetails) returns WorkflowModelDetails|error? = @java:Method {
+isolated function getServiceModelExternal(WorkflowModel svc) returns WorkflowMethods|error? = @java:Method {
     'class: "io.ballerina.stdlib.workflow.runtime.nativeimpl.HelperFunction",
     name: "getServiceModel"
 } external;

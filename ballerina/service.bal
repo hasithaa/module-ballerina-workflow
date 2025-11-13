@@ -29,11 +29,16 @@ public isolated class WorkflowEventListener {
 
     public isolated function attach(WorkflowModel svc, string workflowName) returns error? {
 
-        WorkflowModelDetails details = check getServiceModel(svc);
-        // Assume we have desugared the workflow activities at compile time.
-        Activities? result = (typeof svc).@internal:__WorkflowActivities;
-
-        check self.persistentProvider.registerWorkflowModel(svc, details, workflowName, result ?: {});
+        WorkflowMethods details = check getServiceModel(svc);
+        final WorkflowModelData data = {
+            workflowName: workflowName,
+            execute: details.execute,
+            signals: details.signals,
+            queries: details.queries,
+            // Assume we have desugared the workflow activities at compile time.
+            activities: (typeof svc).@internal:__WorkflowActivities ?: {}
+        };
+        check self.persistentProvider.registerWorkflowModel(svc, data);
     }
 
     public isolated function detach(WorkflowModel svc) returns error? {

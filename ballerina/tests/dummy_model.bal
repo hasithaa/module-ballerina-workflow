@@ -3,7 +3,7 @@ import workflow.internal;
 isolated class MockProvider {
 
     *PersistentProvider;
-    private final map<[WorkflowModelDetails, Activities]> workflowModels = {};
+    private final map<WorkflowModelData> workflowModels = {};
 
     public isolated function init() {
     }
@@ -16,9 +16,15 @@ isolated class MockProvider {
         return new MockWorkflowOperators();
     }
 
-    public isolated function registerWorkflowModel(WorkflowModel svc, WorkflowModelDetails details, string workflowName, Activities activities) returns error? {
+    public isolated function registerWorkflowModel(WorkflowModel svc, WorkflowModelData data) returns error? {
         lock {
-            self.workflowModels[workflowName] = [details.cloneReadOnly(), activities.cloneReadOnly()];
+            self.workflowModels[data.workflowName] = {
+                workflowName: data.workflowName,
+                execute: data.execute.clone(),
+                signals: data.signals.clone(),
+                queries: data.queries.clone(),
+                activities: data.activities.clone()
+            };
         }
         return;
     }
@@ -35,15 +41,21 @@ isolated class MockProvider {
         return;
     }
 
-    public isolated function getWorkflowModelDetails(string workflowName) returns WorkflowModelDetails|error {
+    public isolated function getWorkflowActivities(string workflowName) returns Activities|error {
         lock {
-            return self.workflowModels.get(workflowName)[0].cloneReadOnly();
+            var workflowModelData = self.workflowModels.get(workflowName);
+            return workflowModelData.activities.clone();
         }
     }
 
-    public isolated function getWorkflowModelActivities(string workflowName) returns Activities|error {
+    public isolated function getWorkflowMethods(string workflowName) returns WorkflowMethods|error {
         lock {
-            return self.workflowModels.get(workflowName)[1].cloneReadOnly();
+            var workflowModelData = self.workflowModels.get(workflowName);
+            return {
+                execute: workflowModelData.execute.clone(),
+                signals: workflowModelData.signals.clone(),
+                queries: workflowModelData.queries.clone()
+            };
         }
     }
 }

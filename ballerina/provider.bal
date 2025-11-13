@@ -17,7 +17,7 @@
 # Workflow Persistent Provider
 public type PersistentProvider distinct isolated object {
 
-    public isolated function registerWorkflowModel(WorkflowModel svc, WorkflowModelDetails details, string workflowName, Activities activities) returns error?;
+    public isolated function registerWorkflowModel(WorkflowModel svc, WorkflowModelData data) returns error?;
 
     public isolated function unregisterWorkflowModel(WorkflowModel svc) returns error?;
 

@@ -25,7 +25,6 @@ import io.ballerina.runtime.api.utils.StringUtils;
 import io.ballerina.runtime.api.values.BMap;
 import io.ballerina.runtime.api.values.BObject;
 import io.ballerina.runtime.api.values.BString;
-import io.ballerina.runtime.api.values.BTypedesc;
 import io.ballerina.stdlib.workflow.runtime.commons.Utils;
 import io.ballerina.stdlib.workflow.runtime.commons.model.AbstractRemoteMethod;
 import io.ballerina.stdlib.workflow.runtime.commons.model.ExecuteMethod;
@@ -39,10 +38,15 @@ import io.ballerina.stdlib.workflow.runtime.commons.model.WorkflowServiceBuilder
  */
 public final class HelperFunction {
 
+    public static final String WORKFLOW_METHODS = "WorkflowMethods";
+    public static final BString EXECUTE = StringUtils.fromString("execute");
+    public static final BString SIGNALS = StringUtils.fromString("signals");
+    public static final BString QUERIES = StringUtils.fromString("queries");
+
     private HelperFunction() {
     }
 
-    public static Object getServiceModel(BObject svc, BTypedesc typedesc) {
+    public static Object getServiceModel(BObject svc) {
         try {
             WorkflowService ws = WorkflowServiceBuilder.build(svc, ModuleUtils.getPackageIdentifier());
 
@@ -69,14 +73,11 @@ public final class HelperFunction {
 
             // Create the main record
             BMap<BString, Object> result = ValueCreator.createMapValue();
-            result.put(StringUtils.fromString("execute"), executeAction);
-            result.put(StringUtils.fromString("signals"), signalsMap);
-            result.put(StringUtils.fromString("queries"), queriesMap);
+            result.put(EXECUTE, executeAction);
+            result.put(SIGNALS, signalsMap);
+            result.put(QUERIES, queriesMap);
 
-            BMap<BString, Object> workflowModelDetails = ValueCreator.createRecordValue(ModuleUtils.getPackage(),
-                                                                                        "WorkflowModelDetails", result);
-
-            return workflowModelDetails;
+            return ValueCreator.createRecordValue(ModuleUtils.getPackage(), WORKFLOW_METHODS, result);
         } catch (Exception e) {
             return Utils.createError("WorkflowModelError", "Error while creating workflow model: " + e.getMessage());
         }

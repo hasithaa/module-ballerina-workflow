@@ -36,12 +36,12 @@ public type Execution record {|
     string id;
 |};
 
-public type Activities map<function>;
-
-public type WorkflowModelDetails record {|
+public type WorkflowModelData record {|
+    string workflowName;
     WorkflowAction execute;
     map<WorkflowAction> signals;
     map<WorkflowAction> queries;
+    Activities activities;
 |};
 
 public type WorkflowAction record {|
@@ -51,3 +51,11 @@ public type WorkflowAction record {|
 |};
 
 public type Parameters map<typedesc>;
+
+public type WorkflowMethods record {|
+    WorkflowAction execute;
+    map<WorkflowAction> signals;
+    map<WorkflowAction> queries;
+|};
+
+public type Activities map<function>;
