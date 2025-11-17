@@ -74,6 +74,7 @@ dependencies = [
 ]
 modules = [
 	{org = "ballerina", packageName = "workflow", moduleName = "workflow"},
-	{org = "ballerina", packageName = "workflow", moduleName = "workflow.internal"}
+	{org = "ballerina", packageName = "workflow", moduleName = "workflow.internal"},
+	{org = "ballerina", packageName = "workflow", moduleName = "workflow.provider"}
 ]
 
