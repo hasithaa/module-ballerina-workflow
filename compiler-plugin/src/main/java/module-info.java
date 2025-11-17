@@ -18,6 +18,10 @@
 
 module io.ballerina.stdlib.workflow.compiler {
     requires io.ballerina.lang;
+    requires io.ballerina.parser;
+    requires io.ballerina.tools.api;
 
     exports io.ballerina.stdlib.workflow.compiler;
+    exports io.ballerina.stdlib.workflow.compiler.analyzer;
+    exports io.ballerina.stdlib.workflow.compiler.diagnostics;
 }

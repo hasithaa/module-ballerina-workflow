@@ -1,0 +1,81 @@
+// Copyright (c) 2025, WSO2 LLC. (http://www.wso2.org) All Rights Reserved.
+//
+// WSO2 LLC. licenses this file to you under the Apache License,
+// Version 2.0 (the "License"); you may not use this file except
+// in compliance with the License.
+// You may obtain a copy of the License at
+//
+// http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing,
+// software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+// KIND, either express or implied.  See the License for the
+// specific language governing permissions and limitations
+// under the License.
+
+import ballerina/workflow;
+
+workflow:PersistentProvider persistentProvider = object {
+    public isolated function registerWorkflowModel(workflow:WorkflowModel svc, string workflowName) returns error? {
+    }
+    public isolated function unregisterWorkflowModel(workflow:WorkflowModel svc) returns error? {
+    }
+    public isolated function 'start() returns error? {
+    }
+    public isolated function stop() returns error? {
+    }
+    public isolated function getClient() returns workflow:WorkflowEngineClient|error {
+        return error("not implemented");
+    }
+    public isolated function getWorkflowOperators() returns workflow:WorkflowOperators|error {
+        return error("not implemented");
+    }
+    public isolated function getWorkflowInternalOperators() returns workflow:WorkflowInternalOperators|error {
+        return error("not implemented");
+    }
+};
+
+// No execute function, missing annotation on one approve function, resource function defined
+service "workflow" on new workflow:WorkflowEventListener(persistentProvider) {
+
+    @workflow:Signal
+    isolated remote function verified(boolean a) returns error? {
+    }
+
+    isolated remote function approve(boolean a) returns error? {
+    }
+
+    @workflow:Query
+    isolated remote function status() returns map<string> {
+        return {};
+    }
+
+    resource function get status() returns string {
+        return "active";
+    }
+}
+
+// Invalid parameter type in execute function, remote method is not isolated, invalid return type in remote functions.
+service "workflow" on new workflow:WorkflowEventListener(persistentProvider) {
+
+    isolated remote function execute(function a) returns error? {
+    }
+
+    @workflow:Signal
+    remote function verified(error a) returns error? {
+    }
+
+    isolated remote function approve(boolean a) returns error? {
+    }
+
+    @workflow:Signal
+    isolated remote function status() returns function {
+        return function () {};
+    }
+
+    @workflow:Query
+    isolated remote function orderStatus() returns function {
+        return function () {};
+    }
+}
